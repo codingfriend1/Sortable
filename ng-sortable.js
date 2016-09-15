@@ -94,7 +94,9 @@
 
 						var oldIndex = evt.oldIndex,
 							newIndex = evt.newIndex,
-							items = source.items();
+							original = source.items();
+
+						var items = angular.copy(original)
 
 						if (el !== evt.from) {
 							var prevSource = getSource(evt.from),
@@ -118,7 +120,7 @@
 						else {
 							items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
 						}
-
+						original = items;
 						scope.$apply();
 					}
 
