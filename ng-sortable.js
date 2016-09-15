@@ -121,6 +121,7 @@
 							items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
 						}
 						original = items;
+						evt.stopPropagation();
 						scope.$apply();
 					}
 
