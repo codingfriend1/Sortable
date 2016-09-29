@@ -120,7 +120,9 @@
 						else {
 							items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
 						}
-						original = items;
+						for (var i = 0; i < original.length; i++) {
+						      original[i] = items[i]
+						}
 						evt.stopPropagation();
 						scope.$apply();
 					}
