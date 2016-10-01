@@ -191,6 +191,8 @@
 				options =  this.options,
 				el = this.el,
 				filter = options.filter;
+			
+			evt.stopPropagation();
 
 			if (type === 'mousedown' && evt.button !== 0 || options.disabled) {
 				return; // only left button or enabled
