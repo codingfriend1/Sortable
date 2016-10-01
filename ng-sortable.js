@@ -118,7 +118,10 @@
 							evt.from.insertBefore(evt.item, nextSibling); // revert element
 						}
 						else {
-							items.splice(newIndex, 0, items.splice(oldIndex, 1)[0]);
+							var after = items.splice(oldIndex, 1)
+							if(after[0]) {
+								items.splice(newIndex, 0, after[0]);
+							}
 						}
 						for (var i = 0; i < original.length; i++) {
 						      original[i] = items[i]
