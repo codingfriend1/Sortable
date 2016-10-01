@@ -96,7 +96,11 @@
 							newIndex = evt.newIndex,
 							original = source.items();
 
-						var items = angular.copy(original)
+// 						var items = angular.copy(original)
+						var items = []
+						for (var i = 0; i < original.length; i++) {
+							items[i] = original[i]
+						}
 
 						if (el !== evt.from) {
 							var prevSource = getSource(evt.from),
