@@ -629,7 +629,7 @@
 						// Remove clone
 						cloneEl && cloneEl.parentNode.removeChild(cloneEl);
 
-						if (dragEl.nextSibling && dragEl.nextSibling !== nextEl) {
+						if (dragEl.nextSibling !== nextEl) {
 							// Get the index of the dragged element within its parent
 							newIndex = _index(dragEl);
 
