@@ -26,7 +26,7 @@
 
 	angular.module('ng-sortable', [])
 		.constant('$version', '0.3.5')
-		.directive('ngSortable', ['$parse', function ($parse) {
+		.directive('ngSortable', ['$parse', '$timeout', function ($parse, $timeout) {
 			var removed,
 				nextSibling;
 
@@ -56,7 +56,13 @@
 					},
 					items: function () {
 						return itemsExpr(scope);
-					}
+					},
+          parentList: function() {
+            return {
+              scope: scope,
+              property: ngRepeat[2]
+            }
+          }
 				};
 			}
 
@@ -96,11 +102,11 @@
 							newIndex = evt.newIndex,
 							original = source.items();
 
-// 						var items = angular.copy(original)
-						var items = []
-						for (var i = 0; i < original.length; i++) {
-							items[i] = original[i]
-						}
+            var items = []
+            for (var i = 0; i < original.length; i++) {
+              items[i] = original[i]
+            }
+
 
 						if (el !== evt.from) {
 							var prevSource = getSource(evt.from),
@@ -122,15 +128,22 @@
 							evt.from.insertBefore(evt.item, nextSibling); // revert element
 						}
 						else {
-							var after = items.splice(oldIndex, 1)
-							if(after[0]) {
-								items.splice(newIndex, 0, after[0]);
-							}
+              var after = items.splice(oldIndex, 1)
+              if(after[0]) {
+                items.splice(newIndex, 0, after[0]);
+              }
 						}
-						for (var i = 0; i < original.length; i++) {
-						      original[i] = items[i]
-						}
+
+            for (var i = original.length - 1; i >= 0; i--) {
+              var item = angular.copy(items[i])
+              if(items[i].$$hashKey) {
+                item.$$hashKey = items[i].$$hashKey
+              }
+              original[i] = item
+            }
+            // original = items
 						evt.stopPropagation();
+
 						scope.$apply();
 					}
 
